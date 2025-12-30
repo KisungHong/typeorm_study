@@ -8,6 +8,11 @@ import {
   VersionColumn,
 } from 'typeorm';
 
+enum Role {
+  USER = 'user',
+  ADMIN = 'admin',
+}
+
 @Entity()
 export class UserModel {
   //ID
@@ -27,9 +32,11 @@ export class UserModel {
     // 데이터베이스에서 인지하는 칼럼 타입
     // 자동으로 유추됨
     type: 'varchar',
+
     // 데이터베이스 칼럼 이름
     // 프로퍼티 이름으로 자동 유추됨
     name: 'title',
+
     // 값의 길이
     // 입력할 수 있는 글자의 길이가 300
     length: 300,
@@ -45,6 +52,13 @@ export class UserModel {
     // 기본겂은 false
   })
   title: string;
+
+  @Column({
+    type: 'enum',
+    enum: Role,
+    default: Role.USER,
+  })
+  role: Role;
 
   // 데이터 생성 일자
   @CreateDateColumn()

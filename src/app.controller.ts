@@ -12,23 +12,21 @@ export class AppController {
 
   @Post('users')
   postUser() {
-    return this.userRepository.save({
-      // title: 'test title',
-    });
+    return this.userRepository.save({});
   }
 
   @Get('users')
   getUsers() {
     return this.userRepository.find({
-      select: {
-        id: true,
-        title: true,
-      },
+      // select: {
+      //   id: true,
+      //   title: true,
+      // },
     });
   }
 
   @Patch('users/:id')
-  async patchUser(@Param('id') id: string) {
+  async patchUser(@Param('id') id: string): Promise<UserModel> {
     const user = await this.userRepository.findOne({
       where: {
         id: parseInt(id),
